@@ -1,9 +1,31 @@
 <h1><%= @product.title %></h1>
 <p><%= @product.description %><p>
 <p><%= @product.price %><p>
+<p><%= @product.category_id %></p>
 
 <%= link_to 'Edit', edit_product_path(@product) %>
 
 <%# Rails enables us to make links end non-GET requests by setting the `method`
     attribute for `link_to`. Rails uses Javascript to accomplish that. %>
 <%= link_to 'Delete', product_path(@product), method: :delete, data:{confirm: 'Are you sure?'} %>
+<hr>
+
+<%= @review.errors.full_messages.join(', ') %>
+
+<h2>Reviews</h2>
+<%= form_for [@product, @review] do |f| %>
+  <p>Comment:</p>
+  <%= f.text_area :body %>
+  <p>Rating:</p>
+  <%= f.text_area :rating %>
+  <br>
+  <%= f.submit %>
+<% end %>
+
+<hr>
+<% @product.reviews.each do |r| %>
+  <p>Rating: <%= r.rating %></p>
+  <p><%= r.body %></p>
+  <%= link_to 'Delete review', product_review_path(@product, r), method: :delete, data:{confirm: "Are your sure?"} %>
+  <hr>
+<% end %>

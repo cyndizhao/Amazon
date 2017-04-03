@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 #   post '/questions/:id/comments', to:'comments#create'
 # (HTTP Verb: get - path: /faq ) ==> home controller / faq action
 #   get '/faq', to:'home#faq'
-  resources :products
+  resources :products do
+    resources :reviews, only: [:create, :destroy]
+  end
   # get('/products/new', {to: 'products#index', as:'products'})
 end

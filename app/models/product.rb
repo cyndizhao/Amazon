@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+  belongs_to :category
+  has_many :reviews
+
   validates(:title, { presence: true, uniqueness: true, exclusion: { in: %w( Apple Software Sony),message: "%{value} is reserved." }})
   #validates the title to be true, unique and not the reserved words
   validates(:price, { presence: true, numericality: { greater_than_or_equal_to: 0 }})
@@ -13,7 +16,7 @@ class Product < ApplicationRecord
 
   def self.search(arg1, arg2)
     where(["title ILIKE ? OR description ILIKE ?", "%#{arg1}%", "%#{arg2}%"]).order(:description, :title)
-    # (['description ILIKE ?', "%#{arg2}%"], ['title ILIKE ?', "%#{arg2}%"])
+    #(['description ILIKE ?', "%#{arg2}%"], ['title ILIKE ?', "%#{arg2}%"])
 
   end
 

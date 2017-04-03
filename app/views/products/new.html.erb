@@ -6,6 +6,14 @@
     <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
+
+  <div>
+    <%# f.lable :category %>
+    <span>Category:</span>
+    <%= f.collection_select :category_id, Category.all, :id, :name %>
+  </div>
+
+
   <div>
     <%= f.label :description %>
     <%= f.text_area :description %>

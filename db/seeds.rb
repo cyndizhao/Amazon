@@ -5,11 +5,23 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-1000.times do
-  Product.create title: Faker::Hacker.say_something_smart,
-                  description: Faker::Hipster.paragraph,
-                  price: Faker::Commerce.price
+['Books', 'TV Shows', 'Movies', 'Clothes', 'Music', 'Food'].each do |category|
+  Category.create(name: category)
 end
 
-puts 'Created 1000 questions'
+20.times do
+  category = Category.all.sample
+  Product.create title: Faker::Hacker.say_something_smart,
+                  description: Faker::Hipster.paragraph,
+                  price: Faker::Commerce.price,
+                  category_id: category.id
+end
+
+20.times do
+  product = Product.all.sample
+  Review.create body: Faker::Hipster.paragraph,
+                product_id: product.id,
+                rating: rand(1..5)
+end
+
+puts 'Created 20 questions'
