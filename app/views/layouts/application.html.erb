@@ -6,7 +6,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-    <%= stylesheet_link_tag    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' %>
+    <%# stylesheet_link_tag    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' %>
   </head>
 
   <body>
@@ -38,6 +38,13 @@
       </div>
     </nav>
 
+    <% if flash[:notice] %>
+      <div class="flash-notice"><%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+      <div class="flash-alert"><%= flash.now[:alert] %></div>
+    <% end %>
+    <%#= notice || alert %>
+    <hr>
 
     <%# link_to 'Welcome Home', root_path%>
 

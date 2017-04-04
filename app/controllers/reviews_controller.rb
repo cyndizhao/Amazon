@@ -8,7 +8,7 @@ class ReviewsController < ApplicationController
       #@answer = @question.answers.build(answer_params)
 
       if @review.save
-        redirect_to product_path(@product), notice:'review Created'
+        redirect_to product_path(@product), notice:'Review Created'
       else
         #redirect_to question_path(@question), alert: "Couldn't Create Answer!"
         render '/products/show'
@@ -18,6 +18,6 @@ class ReviewsController < ApplicationController
     def destroy
       review = Review.find(params[:id])
       review.destroy
-      redirect_to product_path(review.product), notice: "review deleted!"
+      redirect_to product_path(review.product), notice: "Review deleted!"
     end
 end

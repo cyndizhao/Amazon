@@ -15,9 +15,11 @@
 <h2>Reviews</h2>
 <%= form_for [@product, @review] do |f| %>
   <p>Comment:</p>
-  <%= f.text_area :body %>
+  <%= f.text_area :body, {class: "form-control"} %>
   <p>Rating:</p>
-  <%= f.text_area :rating %>
+  <%# f.text_area :rating %>
+  <%= f.select :rating, [1,2,3,4,5] %>
+  <br>
   <br>
   <%= f.submit %>
 <% end %>
