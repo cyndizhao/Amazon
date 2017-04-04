@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  has_secure_password
+  has_many :products
+  has_many :reviews
+  #give access to secure password
   validates(:first_name, { presence: true })
   validates(:last_name, { presence: true })
   validates(:email, { presence: true , uniqueness: true})

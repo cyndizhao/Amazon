@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   belongs_to :category
-  has_many :reviews
+  # has_many :reviews
+  belongs_to :user
 
   validates(:title, { presence: true, uniqueness: true, exclusion: { in: %w( Apple Software Sony),message: "%{value} is reserved." }})
   #validates the title to be true, unique and not the reserved words

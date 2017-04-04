@@ -20,5 +20,8 @@ Rails.application.routes.draw do
   resources :products do
     resources :reviews, only: [:create, :destroy]
   end
+
+  resources :users, only:[:new, :create]
+  
   # get('/products/new', {to: 'products#index', as:'products'})
 end
