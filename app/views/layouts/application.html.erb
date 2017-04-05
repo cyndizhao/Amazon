@@ -19,20 +19,25 @@
     |
     <%= link_to 'All Products', products_path %>
     |
-    <%= link_to 'Sign Up', new_user_path %>
-    |
-    <%= link_to 'Login', new_session_path %>
-    |
-    <%= link_to 'Logout', sessions_path, method: :delete, data: {confirm: 'Logout?'} %>
+    <% if user_signed_in? %>
+      <span>Hello <%= current_user.first_name %>, </span>
+      <%= link_to 'Logout', sessions_path, method: :delete, data: {confirm: 'Logout?'} %>
+    <% else %>
+      |
+      <%= link_to 'Sign Up', new_user_path %>
+      |
+      <%= link_to 'Login', new_session_path %>
+    <% end %>
 <hr>
 
 
-<% if flash[:notice] %>
-        <div class=“flash-notice”><%= flash[:notice] %></div>
-      <% elsif flash[:alert] %>
-        <div class=“flash-alert”><%= flash[:alert] %></div>
-      <% end %>
-      <%#= notice || alert %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success"><%= flash[:notice] %></div>
+      <%# bootstrap class alert %>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
+
 
   <%= yield %>
 </body>

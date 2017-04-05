@@ -2,6 +2,7 @@
 <p><%= @product.description %><p>
 <p><%= @product.price %><p>
 <p><%= @product.category_id %></p>
+<p><%= @product.user.first_name %></p>
 
 <%= link_to 'Edit', edit_product_path(@product) %>
 
@@ -26,6 +27,8 @@
 
 <hr>
 <% @product.reviews.each do |r| %>
+  <p><%= r.body  %></p>
+  <p><%= r.user.first_name %></p>
   <p>Rating: <%= r.rating %></p>
   <p><%= r.body %></p>
   <%= link_to 'Delete review', product_review_path(@product, r), method: :delete, data:{confirm: "Are your sure?"} %>

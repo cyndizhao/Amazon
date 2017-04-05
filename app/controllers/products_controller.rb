@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def new
     @product = Product.new
   end
@@ -10,6 +12,7 @@ class ProductsController < ApplicationController
   def create
     # product_params = params.require(:product).permit([:title, :description, :price])
     @product = Product.new(params.require(:product).permit(:title, :description, :price, :category_id))
+    @product.user = current_user
     if @product.save
       redirect_to product_path(@product)
     else
@@ -34,6 +37,15 @@ class ProductsController < ApplicationController
     else
       render :edit
     end
+    # if @product.user != current_user
+    #   flash[:alert] = "You cannot change a product that you did not create"
+    #   redirect_to product_path(@product)
+    # elsif @product.update(product_params)
+    #   redirect_to product_path(@product)
+    # else
+    #   render :edit
+    # end
+    # You CAN'T change a product that you did not create
   end
 
   def destroy

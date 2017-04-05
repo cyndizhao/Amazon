@@ -5,6 +5,7 @@ class ReviewsController < ApplicationController
       review_params = params.require(:review).permit(:body, :rating)
       @review = Review.new(review_params)
       @review.product = @product
+      @review.user = current_user
       #@answer = @question.answers.build(answer_params)
 
       if @review.save
