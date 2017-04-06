@@ -35,6 +35,8 @@ gem 'bcrypt', '~> 3.1.7' #uncomment password_digest
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'cancancan', '~> 1.10'
+gem 'faker'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -53,7 +55,6 @@ group :development do
   gem 'interactive_editor'
   gem 'awesome_print'
   gem 'hirb'
-  gem 'faker'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
