@@ -7,9 +7,9 @@ class User < ApplicationRecord
   validates(:last_name, { presence: true })
   validates(:email, { presence: true , uniqueness: true})
 
-  def self.search(search_term)
-    where(['first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ?', "%#{search_term}%", "%#{search_term}%", "%#{search_term}%"])
-  end
+  # def self.search(search_term)
+  #   where(['first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ?', "%#{search_term}%", "%#{search_term}%", "%#{search_term}%"])
+  # end
 
   def self.created_after(date)
     where(['created_at > ?', "#{date}"])
@@ -18,4 +18,10 @@ class User < ApplicationRecord
   def self.is_not(name)
     where('first_name != ? AND last_name != ?', "#{name}", "#{name}")
   end
+
+  private
+    def self.search(search_term)
+      info = search_term.gsub(/[\s+, \,]/, ' ').split(/\s+/)
+      where({first_name: info[0].downcase, last_name: info[1].downcase, email: info[2].downcase})
+    end
 end

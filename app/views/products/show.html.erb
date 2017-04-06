@@ -4,11 +4,15 @@
 <p><%= @product.category_id %></p>
 <p><%= @product.user.first_name %></p>
 
-<%= link_to 'Edit', edit_product_path(@product) %>
+<% if can? :edit, @product%>
+  <%= link_to 'Edit', edit_product_path(@product) %>
+<% end %>
 
 <%# Rails enables us to make links end non-GET requests by setting the `method`
     attribute for `link_to`. Rails uses Javascript to accomplish that. %>
-<%= link_to 'Delete', product_path(@product), method: :delete, data:{confirm: 'Are you sure?'} %>
+<% if can? :destroy, @product%>
+  <%= link_to 'Delete', product_path(@product), method: :delete, data:{confirm: 'Are you sure?'} %>
+<% end %>
 <hr>
 
 <%= @review.errors.full_messages.join(', ') %>
@@ -31,6 +35,8 @@
   <p><%= r.user.first_name %></p>
   <p>Rating: <%= r.rating %></p>
   <p><%= r.body %></p>
-  <%= link_to 'Delete review', product_review_path(@product, r), method: :delete, data:{confirm: "Are your sure?"} %>
+  <% if can? :destroy, r%>
+    <%= link_to 'Delete review', product_review_path(@product, r), method: :delete, data:{confirm: "Are your sure?"} %>
+  <% end %>
   <hr>
 <% end %>

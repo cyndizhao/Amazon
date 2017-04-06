@@ -1,0 +1,40 @@
+<div class="container">
+  <h4>Number of products: <%= @products.count %> | Number of reviews: <%= @reviews.count %> | Number of users: <%= @users.count %></h4>
+
+</div>
+
+<div class="container">
+<table class="table table-striped">
+  <tr>
+    <th>Product ID</th>
+    <th>Product Title</th>
+  </tr>
+  <% @products.each do |p| %>
+    <tr>
+      <td><%= p.id %></td>
+      <td><%= link_to "#{p.title}", product_path(p) %><%=  %></td>
+    </tr>
+  <% end %>
+</table>
+</div>
+
+<hr>
+<div class="container">
+<table class="table table-striped">
+  <tr>
+    <th>User ID</th>
+    <th>First_name</th>
+    <th>Last_name</th>
+    <th>Email</th>
+
+  </tr>
+  <% @users.each do |u| %>
+    <tr>
+      <td><%= u.id %></td>
+      <td><%= u.first_name %></td>
+      <td><%= u.last_name %></td>
+      <td><%= u.email %></td>
+    </tr>
+  <% end %>
+</table>
+</div>

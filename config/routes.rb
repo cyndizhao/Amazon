@@ -26,6 +26,6 @@ Rails.application.routes.draw do
     delete :destroy, on: :collection
     #password does not show in the address url
   end
-
+  get('/admin/dashboard', {to: 'admin/dashboard#index'})
   # get('/products/new', {to: 'products#index', as:'products'})
 end

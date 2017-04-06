@@ -33,6 +33,7 @@ gem 'bcrypt', '~> 3.1.7' #uncomment password_digest
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'cancancan', '~> 1.10'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!
     def create
       # byebug
       @product = Product.find(params[:product_id])
@@ -17,8 +18,12 @@ class ReviewsController < ApplicationController
     end
 
     def destroy
-      review = Review.find(params[:id])
-      review.destroy
-      redirect_to product_path(review.product), notice: "Review deleted!"
+      if !(can? :destroy, @product)
+        redirect_to root_path, alert:'access denied'
+      else
+        review = Review.find(params[:id])
+        review.destroy
+        redirect_to product_path(review.product), notice: "Review deleted!"
+      end
     end
 end
