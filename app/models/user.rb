@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :products
-  has_many :reviews
+  has_many :reviews, dependent: :nullify 
   #give access to secure password
   validates(:first_name, { presence: true })
   validates(:last_name, { presence: true })
@@ -17,6 +17,10 @@ class User < ApplicationRecord
 
   def self.is_not(name)
     where('first_name != ? AND last_name != ?', "#{name}", "#{name}")
+  end
+
+  def full_name
+    "#{first_name} #{last_name}".titleize
   end
 
   private

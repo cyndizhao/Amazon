@@ -31,6 +31,7 @@
 
 <hr>
 <% @product.reviews.each do |r| %>
+
   <p><%= r.body  %></p>
   <p><%= r.user.first_name %></p>
   <p>Rating: <%= r.rating %></p>
@@ -38,5 +39,9 @@
   <% if can? :destroy, r%>
     <%= link_to 'Delete review', product_review_path(@product, r), method: :delete, data:{confirm: "Are your sure?"} %>
   <% end %>
+
   <hr>
+
+
+
 <% end %>

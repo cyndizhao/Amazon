@@ -1,3 +1,4 @@
+<% if user_signed_in? && current_user.is_admin? %>
 <div class="container">
   <h4>Number of products: <%= @products.count %> | Number of reviews: <%= @reviews.count %> | Number of users: <%= @users.count %></h4>
 
@@ -38,3 +39,5 @@
   <% end %>
 </table>
 </div>
+
+<% end %>

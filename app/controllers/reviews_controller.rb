@@ -5,15 +5,15 @@ class ReviewsController < ApplicationController
       @product = Product.find(params[:product_id])
       review_params = params.require(:review).permit(:body, :rating)
       @review = Review.new(review_params)
-      @review.product = @product
+      # @review.product = @product
       @review.user = current_user
-      #@answer = @question.answers.build(answer_params)
 
       if @review.save
         redirect_to product_path(@product), notice:'Review Created'
       else
         #redirect_to question_path(@question), alert: "Couldn't Create Answer!"
-        render '/products/show'
+        # render '/products/show'
+        redirect_to product_path(@product)
       end
     end
 
