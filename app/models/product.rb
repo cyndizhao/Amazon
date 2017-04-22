@@ -2,6 +2,9 @@ class Product < ApplicationRecord
   belongs_to :category
   has_many :reviews
   belongs_to :user
+  has_many :favourites, dependent: :destroy
+  has_many :user_favourite_it, through: :favourites, source: :user
+
 
   validates(:title, { presence: true, uniqueness: true, exclusion: { in: %w( Apple Software Sony),message: "%{value} is reserved." }})
   #validates the title to be true, unique and not the reserved words
@@ -19,6 +22,14 @@ class Product < ApplicationRecord
     where(["title ILIKE ? OR description ILIKE ?", "%#{arg1}%", "%#{arg2}%"]).order(:description, :title)
     #(['description ILIKE ?', "%#{arg2}%"], ['title ILIKE ?', "%#{arg2}%"])
 
+  end
+
+  def favourite_by?(user)
+    favourites.exists?(user: user)
+  end
+
+  def favourite_for(user)
+    favourites.find_by(user: user)
   end
 
   private

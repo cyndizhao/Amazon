@@ -14,5 +14,20 @@ class Ability < ApplicationRecord
     can [:edit, :destroy], Review do |review|
       review.user == user
     end
+
+    can :like, Review do |r|
+      user != r.user
+    end
+    cannot :like, Review do |r|
+      user == r.user
+    end
+
+    can :favourite, Product do |product|
+      user != product.user
+    end
+    cannot :favourite, Product do |product|
+      user == product.user
+    end
+
   end
 end

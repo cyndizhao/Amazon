@@ -36,7 +36,8 @@ gem 'bcrypt', '~> 3.1.7' #uncomment password_digest
 # gem 'capistrano-rails', group: :development
 gem 'cancancan', '~> 1.10'
 gem 'faker'
-
+gem "letter_opener"
+gem 'font-awesome-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

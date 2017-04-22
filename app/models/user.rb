@@ -1,7 +1,12 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :products
-  has_many :reviews, dependent: :nullify 
+  has_many :reviews, dependent: :nullify
+  has_many :likes, dependent: :destroy
+  has_many :liked_reviews, through: :likes, source: :review
+  has_many :favourites, dependent: :destroy
+  has_many :favourite_products, through: :favourites, source: :product
+
   #give access to secure password
   validates(:first_name, { presence: true })
   validates(:last_name, { presence: true })

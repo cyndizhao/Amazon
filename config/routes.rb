@@ -18,10 +18,21 @@ Rails.application.routes.draw do
 # (HTTP Verb: get - path: /faq ) ==> home controller / faq action
 #   get '/faq', to:'home#faq'
   resources :products do
-    resources :reviews, only: [:create, :destroy]
+    resources :favourites, only: [:create, :destroy]
+    resources :reviews, only: [:create, :destroy], shallow: true  do
+      resources :likes, only: [:create, :destroy]
+    end
   end
 
-  resources :users, only:[:new, :create]
+  # resources :reviews, only: :none do
+  #   resources :likes, only: [:index, :create, :destroy]
+  # end
+  #
+
+
+  resources :users, only:[:new, :create] do
+    resources :favourites, only: [:index] 
+  end
   resources :sessions, only:[:new, :create] do
     delete :destroy, on: :collection
     #password does not show in the address url
