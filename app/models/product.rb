@@ -4,7 +4,8 @@ class Product < ApplicationRecord
   belongs_to :user
   has_many :favourites, dependent: :destroy
   has_many :user_favourite_it, through: :favourites, source: :user
-
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
 
   validates(:title, { presence: true, uniqueness: true, exclusion: { in: %w( Apple Software Sony),message: "%{value} is reserved." }})
   #validates the title to be true, unique and not the reserved words

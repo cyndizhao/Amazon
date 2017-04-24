@@ -21,8 +21,12 @@ Rails.application.routes.draw do
     resources :favourites, only: [:create, :destroy]
     resources :reviews, only: [:create, :destroy], shallow: true  do
       resources :likes, only: [:create, :destroy]
+      resources :votes, only: [:create, :destroy, :update]
     end
   end
+
+  resources :tags, only: [:index, :show]
+
 
   # resources :reviews, only: :none do
   #   resources :likes, only: [:index, :create, :destroy]
@@ -31,7 +35,7 @@ Rails.application.routes.draw do
 
 
   resources :users, only:[:new, :create] do
-    resources :favourites, only: [:index] 
+    resources :favourites, only: [:index]
   end
   resources :sessions, only:[:new, :create] do
     delete :destroy, on: :collection

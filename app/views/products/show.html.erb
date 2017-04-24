@@ -1,8 +1,12 @@
-<h1><%= @product.title %></h1>
-<p><%= @product.description %><p>
-<p><%= @product.price %><p>
-<p><%= @product.category_id %></p>
-<p><%= @product.user.first_name %></p>
+<h1>Title: <%= @product.title %></h1>
+<p>Description: <%= @product.description %><p>
+<p>Price: <%= @product.price %><p>
+<p>Category: <%= @product.category_id %></p>
+<p>Owner: <%= @product.user.first_name %></p>
+<p>Tag(s): <% @product.tags.each do |t| %>
+  <%= link_to t.name, tag_path(t) %>
+<% end %>
+</p>
 
 
 <% if user_signed_in? && (can? :favourite, @product)%>
@@ -57,6 +61,23 @@
       <span><%= pluralize(r.likes.count, 'like') %></span>
     <% end %>
   <% end %>
+
+  <% if user_signed_in? && (can? :vote, r)%>
+    <% user_vote = r.votes.find_by_user_id current_user %>
+    <% if user_vote.nil? %>
+      <%= link_to fa_icon('thumbs-o-up'), review_votes_path(r, {is_up: true}), method: :post %>
+      <%= link_to fa_icon('thumbs-o-down'), review_votes_path(r, {is_up: false}), method: :post %>
+    <% elsif user_vote.is_up?%>
+      <%= link_to fa_icon('thumbs-up'), vote_path(user_vote), method: :delete %>
+      <%= link_to fa_icon('thumbs-o-down'), vote_path(user_vote, {is_up: false}), method: :patch %>
+    <% else %>
+      <%= link_to fa_icon('thumbs-o-up'), vote_path(user_vote, {is_up: true}), method: :patch %>
+      <%= link_to fa_icon('thumbs-down'), vote_path(user_vote), method: :delete %>
+    <% end %>
+  <% end %>
+
+  <%= r.votes_count %>
+
 
 
   <% if can? :destroy, r%>

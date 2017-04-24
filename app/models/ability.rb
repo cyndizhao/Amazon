@@ -29,5 +29,13 @@ class Ability < ApplicationRecord
       user == product.user
     end
 
+    can :vote, Review do |r|
+      user != r.user
+    end
+    
+    cannot :vote, Review do |r|
+      user == r.user
+    end
+
   end
 end

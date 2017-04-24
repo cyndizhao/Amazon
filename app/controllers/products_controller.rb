@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
   def update
 
     @product = Product.find params[:id]
-    product_params = params.require(:product).permit([:title, :description, :price, :category_id])
+    product_params = params.require(:product).permit([:title, :description, :price, :category_id, { tag_ids:[] }])
     # if @product.update(product_params)
     #   redirect_to product_path(@product)
     # else
