@@ -43,4 +43,10 @@ Rails.application.routes.draw do
   end
   get('/admin/dashboard', {to: 'admin/dashboard#index'})
   # get('/products/new', {to: 'products#index', as:'products'})
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :products, only:[:index, :show, :create]
+    end
+  end
 end
