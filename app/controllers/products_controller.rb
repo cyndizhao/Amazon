@@ -10,8 +10,8 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product_params = params.require(:product).permit([:title, :description, :price])
-    @product = Product.new(params.require(:product).permit(:title, :description, :price, :category_id))
+    # product_params = params.require(:product).permit([:title, :description, :price])
+    @product = Product.new(params.require(:product).permit(:title, :description, :price, :category_id, :image))
     @product.user = current_user
     if @product.save
       flash[:notice] = "New product created"
@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
   def update
 
     @product = Product.find params[:id]
-    product_params = params.require(:product).permit([:title, :description, :price, :category_id, { tag_ids:[] }])
+    product_params = params.require(:product).permit([:title, :description, :price, :category_id, { tag_ids:[] }, :image])
     # if @product.update(product_params)
     #   redirect_to product_path(@product)
     # else
@@ -43,7 +43,7 @@ class ProductsController < ApplicationController
     # end
     if !(can? :edit, @product)
       redirect_to root_path, alert:'access denied'
-    elsif @product.update(product_params)
+    elsif @product.update(product_params.merge({slug: nil}))
       redirect_to product_path(@product)
     else
       render :edit

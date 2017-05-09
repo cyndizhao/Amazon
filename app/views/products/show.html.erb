@@ -3,6 +3,8 @@
 <p>Price: <%= @product.price %><p>
 <p>Category: <%= @product.category_id %></p>
 <p>Owner: <%= @product.user.first_name %></p>
+<p><%= image_tag @product.image.url(:medium) if @product.image.present? %></p>
+
 <p>Tag(s): <% @product.tags.each do |t| %>
   <%= link_to t.name, tag_path(t) %>
 <% end %>

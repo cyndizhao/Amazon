@@ -18,6 +18,10 @@ class Product < ApplicationRecord
   after_initialize :set_defaults
   before_validation :capitalize_title
 
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :history, :finders]
+
+  mount_uploader :image, ImageUploader
 
   def self.search(arg1, arg2)
     where(["title ILIKE ? OR description ILIKE ?", "%#{arg1}%", "%#{arg2}%"]).order(:description, :title)
