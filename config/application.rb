@@ -21,5 +21,11 @@ module Amazon
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*' #specifies which domains can do cors request to our rails sever
+        resource '*', :headers => :any, :methods => [:get, :post, :options, :delete, :put, :patch]
+      end
+    end
   end
 end

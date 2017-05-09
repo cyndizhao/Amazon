@@ -39,6 +39,8 @@ gem 'faker'
 gem "letter_opener"
 gem 'font-awesome-rails'
 gem 'chosen-rails'
+gem 'rack-cors'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
